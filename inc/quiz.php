@@ -1,15 +1,17 @@
 <?php
 
-include 'questions.php';
-if(empty($questions)){
-    $questions = $generateQuestions;
-}
+
 
 // Start the session
 session_start();
 
 // Include questions from the questions.php file
+include 'generate_questions.php';
 
+//Assign dynamic the questions
+if(!isset($_SESSION["questions"])){
+    $_SESSION["questions"] = generateQuestions();
+}
 
 
 // Make a variable to determine if the score will be shown or not. Set it to false.
@@ -19,7 +21,7 @@ $show_score = false;
 $index = null;
 
 // Make a variable to hold the total number of questions to ask
-$totalQuestions = count($questions);
+$totalQuestions = count($_SESSION["questions"]);
 
 // Make a variable to hold the toast message and set it to an empty string
 $toast = null;
@@ -28,7 +30,7 @@ $toast = null;
 //If the server request was of type POST
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     //Check if the user's answer is the correct answer
-    if($_POST['answer'] == $questions[$_POST['index']]['correctAnswer']){
+    if($_POST['answer'] == $_SESSION["questions"][$_POST['index']]['correctAnswer']){
         //Assign a congratulutory string to the toast variable 
         $toast = 'Well done! Thats correct';
         //Increment the session variable that holds the total number correct by one
@@ -69,11 +71,11 @@ if(count($_SESSION["used_indexes"]) == $totalQuestions){
     }
     //As long as the index belongs to the used indexes array generate another one
     do {
-        $index = array_rand($questions);
+        $index = rand(0,$totalQuestions-1);
     } while(in_array($index,$_SESSION["used_indexes"]));
 
     //Assign the new random question in variable question
-    $question = $questions[$index];
+    $question = $_SESSION["questions"][$index];
     //Push in the array used indexes the newly generated index
     array_push( $_SESSION["used_indexes"], $index);
     //Create an array with the answers of the question we have just assigned in the question variable

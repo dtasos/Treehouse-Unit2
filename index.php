@@ -10,8 +10,8 @@
 <body>
     <?php include 'inc/quiz.php'; ?>
     <?php //var_dump($_SESSION["used_indexes"]) ; ?>
-    <?php //var_dump($_SESSION["totalCorrect"]) ; ?>
-    <?php var_dump($questions) ; ?>
+    <?php //var_dump($_SESSION[$]) ; ?>
+    <?php var_dump($_SESSION["questions"]) ; ?>
     <div class="container">
         <div id="quiz-box">
             <?php 

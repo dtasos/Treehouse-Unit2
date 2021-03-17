@@ -32,5 +32,3 @@ function generateQuestions(){
     return $questionsCreate;
 
 }
-
-$generateQuestions = generateQuestions();
