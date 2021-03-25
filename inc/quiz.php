@@ -57,6 +57,8 @@ if(!isset( $_SESSION["used_indexes"])){
 if(count($_SESSION["used_indexes"]) == $totalQuestions){
     //reset the session variable for used_indexes to an empty array
     $_SESSION["used_indexes"] = [];
+    //get new question
+    $_SESSION["questions"] = generateQuestions();
     //set show score to true to end the quiz
     $show_score = true;
 } else {
